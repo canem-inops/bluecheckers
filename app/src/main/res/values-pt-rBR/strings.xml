@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Blue Damas</string>
+
+    <!-- Home -->
+    <string name="home_tagline">Damas brasileiras contra uma IA que aprende.</string>
+    <string name="home_start_level">Começar nível %1$d</string>
+    <string name="home_play_again">Jogar de novo (nível %1$d)</string>
+    <string name="home_two_player">Dois jogadores (mesmo aparelho)</string>
+    <string name="home_no_games">Nenhuma partida ainda — vença 5 jogos em cada nível para desbloquear o próximo.</string>
+    <string name="home_stats">%1$d partidas  •  %2$dV %3$dD %4$dE</string>
+    <string name="home_stats_with_highest">%1$d partidas  •  %2$dV %3$dD %4$dE  •  maior nível vencido: %5$d</string>
+    <string name="home_progress_at_unlocked">%1$d/%2$d vitórias no nível %3$d</string>
+    <string name="home_rules">Regras</string>
+    <string name="home_settings">Configurações</string>
+    <string name="home_reset_progress">Apagar progresso</string>
+    <string name="reset_dialog_title">Apagar todo o progresso?</string>
+    <string name="reset_dialog_body">Isso apaga todas as pontuações e os pesos aprendidos pela IA. Não pode ser desfeito.</string>
+    <string name="reset_action">Apagar</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- Game -->
+    <string name="game_home">Início</string>
+    <string name="game_restart">Reiniciar</string>
+    <string name="game_undo">Desfazer</string>
+    <string name="game_resign">Desistir</string>
+    <string name="game_level">Nível %1$d</string>
+    <string name="game_two_player">Dois jogadores</string>
+    <string name="game_you_win">Você venceu!</string>
+    <string name="game_you_lose">Você perdeu.</string>
+    <string name="game_draw">Empate.</string>
+    <string name="game_ai_thinking">IA pensando…</string>
+    <string name="game_your_move">Sua jogada</string>
+    <string name="game_to_move_white">Brancas jogam</string>
+    <string name="game_to_move_black">Pretas jogam</string>
+    <string name="game_opponents_move">Vez do oponente</string>
+    <string name="game_capture_mandatory">  —  captura obrigatória</string>
+    <string name="game_dialog_you_win_title">Você venceu</string>
+    <string name="game_dialog_you_lose_title">Você perdeu</string>
+    <string name="game_dialog_you_win_body">Você venceu o nível %1$d.</string>
+    <string name="game_dialog_you_lose_body">Mais sorte na próxima no nível %1$d.</string>
+    <string name="game_dialog_2p_win_title_white">As brancas vencem</string>
+    <string name="game_dialog_2p_win_title_black">As pretas vencem</string>
+    <string name="game_dialog_2p_body">Fim de jogo.</string>
+    <string name="game_dialog_draw_title">Empate</string>
+    <string name="game_dialog_draw_no_progress">Sem progresso por tempo demais.</string>
+    <string name="game_dialog_draw_repetition">Mesma posição três vezes.</string>
+    <string name="game_dialog_draw_agreement">Empate por acordo.</string>
+    <string name="game_play_again">Jogar de novo</string>
+
+    <!-- Rules -->
+    <string name="rules_title">Regras brasileiras</string>
+    <string name="back">Voltar</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Configurações</string>
+    <string name="settings_animations">Animações</string>
+    <string name="settings_animations_desc">Deslizar as peças entre as casas.</string>
+    <string name="settings_hints">Dicas de captura</string>
+    <string name="settings_hints_desc">Destacar capturas obrigatórias em vermelho.</string>
+    <string name="settings_undo">Desfazer</string>
+    <string name="settings_undo_desc">Permite desfazer a última jogada durante a partida (desativado no nível mais alto desbloqueado para manter a pontuação justa).</string>
+    <string name="settings_tournament">Regras de empate de torneio</string>
+    <string name="settings_tournament_desc">Usar os contadores escalonados da FMJD-64 (15/30/60 lances) em vez da regra CBD de 20 lances de damas.</string>
+    <string name="settings_sound">Sons</string>
+    <string name="settings_sound_desc">Clique ao mover, tum ao capturar.</string>
+    <string name="settings_self_play">Auto-treino</string>
+    <string name="settings_self_play_desc">Treinar a IA em segundo plano enquanto o aparelho está carregando e ocioso.</string>
+</resources>

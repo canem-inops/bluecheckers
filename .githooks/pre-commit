@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# Block commits whose staged additions contain any word listed in a local
+# patterns file. The patterns file is per-clone and is never tracked by git,
+# so individual contributors can keep personal "don't leak this" words
+# (names, employers, project codenames) out of public history without
+# revealing the list itself.
+#
+# Patterns file location: $GIT_DIR/identity-block-patterns
+#   - One pattern per line. Blank lines and lines starting with # are ignored.
+#   - Matched case-insensitively, whole-word only (so "alice" wouldn't trip
+#     a substring like "malicious").
+#   - If the file is missing or empty, the hook does nothing.
+#
+# Run scripts/setup.sh after cloning to install the hook and create an empty
+# patterns file you can edit. To bypass intentionally on a single commit, use
+# `git commit --no-verify` — sparingly.
+
+set -u
+
+git_dir="$(git rev-parse --git-dir 2>/dev/null)"
+if [[ -z "${git_dir}" ]]; then
+  exit 0
+fi
+patterns_file="${git_dir}/identity-block-patterns"
+if [[ ! -f "${patterns_file}" ]]; then
+  exit 0
+fi
+
+patterns=()
+while IFS= read -r line || [[ -n "${line}" ]]; do
+  trimmed="${line#"${line%%[![:space:]]*}"}"
+  trimmed="${trimmed%"${trimmed##*[![:space:]]}"}"
+  [[ -z "${trimmed}" ]] && continue
+  [[ "${trimmed}" == \#* ]] && continue
+  patterns+=("${trimmed}")
+done < "${patterns_file}"
+
+if [[ ${#patterns[@]} -eq 0 ]]; then
+  exit 0
+fi
+
+# Collect staged diff (additions only — leading "+" lines, excluding the "+++"
+# header). The hook excludes itself via pathspec so patterns lines never trip
+# it. Bracket expressions ([+]) keep the regex portable across BSD grep, GNU
+# grep, and ugrep.
+diff=$(git diff --cached --diff-filter=AM --no-color -U0 -- . ':!.githooks/pre-commit' \
+  | grep -E '^[+]' \
+  | grep -v -E '^[+][+][+]')
+
+if [[ -z "${diff}" ]]; then
+  exit 0
+fi
+
+violation=0
+for pattern in "${patterns[@]}"; do
+  if echo "${diff}" | grep -iqw "${pattern}"; then
+    echo "pre-commit: blocked token (configured locally) found in staged changes." >&2
+    echo "  Lines:" >&2
+    echo "${diff}" | grep -inw "${pattern}" | sed 's/^/    /' >&2
+    violation=1
+  fi
+done
+
+if [[ ${violation} -ne 0 ]]; then
+  echo >&2
+  echo "Commit aborted. Remove or rephrase the flagged text and re-stage." >&2
+  echo "If you are SURE this is intentional, re-run with --no-verify." >&2
+  exit 1
+fi
+
+exit 0
